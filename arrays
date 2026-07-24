@@ -1,0 +1,232 @@
+Minimum Cost to Move Chips to The Same Position
+public class MinimumCostChips {
+    public static int minCostToMoveChips(int[] position) {
+        int evenCount = 0, oddCount = 0;
+
+        // Count chips at even and odd positions
+        for (int pos : position) {
+            if (pos % 2 == 0) {
+                evenCount++;
+            } else {
+                oddCount++;
+            }
+        }
+
+        // Minimum cost is the smaller group
+        return Math.min(evenCount, oddCount);
+    }
+
+    public static void main(String[] args) {
+        int[] position = {1, 2, 3}; 
+        System.out.println("Minimum cost = " + minCostToMoveChips(position));
+    }
+}
+
+Product of Array Except Self
+import java.util.Arrays;
+
+public class ProductExceptSelf {
+    public static int[] productExceptSelf(int[] nums) {
+        int n = nums.length;
+        int[] left = new int[n];
+        int[] right = new int[n];
+        int[] result = new int[n];
+
+        // Left products
+        left[0] = 1;
+        for (int i = 1; i < n; i++) {
+            left[i] = left[i - 1] * nums[i - 1];
+        }
+
+        // Right products
+        right[n - 1] = 1;
+        for (int i = n - 2; i >= 0; i--) {
+            right[i] = right[i + 1] * nums[i + 1];
+        }
+
+        // Result = left[i] * right[i]
+        for (int i = 0; i < n; i++) {
+            result[i] = left[i] * right[i];
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 2, 3, 4};
+        System.out.println("Result: " + Arrays.toString(productExceptSelf(nums)));
+    }
+}
+
+Find First and Last Position of Element in Sorted Array
+import java.util.Arrays;
+
+public class FirstLastPosition {
+    public static int[] searchRange(int[] nums, int target) {
+        int first = findBound(nums, target, true);
+        int last = findBound(nums, target, false);
+        return new int[]{first, last};
+    }
+
+    private static int findBound(int[] nums, int target, boolean isFirst) {
+        int low = 0, high = nums.length - 1, result = -1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            if (nums[mid] == target) {
+                result = mid;
+                if (isFirst) {
+                    high = mid - 1; // keep searching left
+                } else {
+                    low = mid + 1;  // keep searching right
+                }
+            } else if (nums[mid] < target) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {5,7,7,8,8,10};
+        int target = 8;
+        System.out.println("First and Last Position: " + Arrays.toString(searchRange(nums, target)));
+    }
+}
+
+Rotate Array
+import java.util.Arrays;
+
+public class RotateArray {
+    public static void rotate(int[] nums, int k) {
+        int n = nums.length;
+        k = k % n; // handle cases where k > n
+
+        // Step 1: Reverse entire array
+        reverse(nums, 0, n - 1);
+
+        // Step 2: Reverse first k elements
+        reverse(nums, 0, k - 1);
+
+        // Step 3: Reverse remaining elements
+        reverse(nums, k, n - 1);
+    }
+
+    // Helper method to reverse part of array
+    private static void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1,2,3,4,5,6,7};
+        int k = 3;
+
+        rotate(nums, k);
+        System.out.println("Rotated Array: " + Arrays.toString(nums));
+    }
+}
+
+
+Max Value of Equation
+import java.util.PriorityQueue;
+
+public class MaxValueEquation {
+    public static int findMaxValueOfEquation(int[][] points, int k) {
+        int max = Integer.MIN_VALUE;
+
+        // Max heap storing [y - x, x]
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> b[0] - a[0]);
+
+        for (int[] p : points) {
+            int x = p[0], y = p[1];
+
+            // Remove points where |x - xi| > k
+            while (!pq.isEmpty() && x - pq.peek()[1] > k) {
+                pq.poll();
+            }
+
+            // If valid candidate exists, update max
+            if (!pq.isEmpty()) {
+                max = Math.max(max, x + y + pq.peek()[0]);
+            }
+
+            // Add current point as candidate
+            pq.offer(new int[]{y - x, x});
+        }
+
+        return max;
+    }
+
+    public static void main(String[] args) {
+        int[][] points = {{1,3},{2,0},{5,10},{6,-10}};
+        int k = 1;
+        System.out.println("Max Value = " + findMaxValueOfEquation(points, k));
+    }
+}
+
+First Missing Positive
+public class FirstMissingPositive {
+    public static int firstMissingPositive(int[] nums) {
+        int n = nums.length;
+
+        // Place each number at its correct index
+        for (int i = 0; i < n; i++) {
+            while (nums[i] > 0 && nums[i] <= n && nums[nums[i] - 1] != nums[i]) {
+                int temp = nums[i];
+                nums[i] = nums[temp - 1];
+                nums[temp - 1] = temp;
+            }
+        }
+
+        // Find the first index where nums[i] != i+1
+        for (int i = 0; i < n; i++) {
+            if (nums[i] != i + 1) {
+                return i + 1;
+            }
+        }
+
+        // If all numbers are in place, answer is n+1
+        return n + 1;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {3, 4, -1, 1};
+        System.out.println("First Missing Positive = " + firstMissingPositive(nums));
+    }
+}
+
+Good Array
+public class GoodArray {
+    public static boolean isGoodArray(int[] nums) {
+        int gcd = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            gcd = gcd(gcd, nums[i]);
+        }
+        return gcd == 1;
+    }
+
+    // Helper method to compute GCD
+    private static int gcd(int a, int b) {
+        return b == 0 ? a : gcd(b, a % b);
+    }
+
+    public static void main(String[] args) {
+        int[] nums1 = {12, 5, 7, 23};
+        int[] nums2 = {6, 10, 15};
+
+        System.out.println("Is nums1 a Good Array? " + isGoodArray(nums1)); // true
+        System.out.println("Is nums2 a Good Array? " + isGoodArray(nums2)); // false
+    }
+}
+
+
