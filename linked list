@@ -1,0 +1,133 @@
+Find All Numbers Disappeared in an Array
+import java.util.*;
+
+public class FindDisappearedNumbers {
+    public static List<Integer> findDisappearedNumbers(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            int idx = Math.abs(nums[i]) - 1;
+            if (nums[idx] > 0) nums[idx] = -nums[idx];
+        }
+        List<Integer> result = new ArrayList<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > 0) result.add(i + 1);
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {4,3,2,7,8,2,3,1};
+        System.out.println(findDisappearedNumbers(nums)); // [5,6]
+    }
+}
+
+Remove Linked List Elements
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int x) { val = x; }
+}
+
+public class RemoveElements {
+    public static ListNode removeElements(ListNode head, int val) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode curr = dummy;
+        while (curr.next != null) {
+            if (curr.next.val == val) curr.next = curr.next.next;
+            else curr = curr.next;
+        }
+        return dummy.next;
+    }
+}
+
+Split Linked List in Parts
+public class SplitListParts {
+    public static ListNode[] splitListToParts(ListNode head, int k) {
+        int length = 0;
+        for (ListNode curr = head; curr != null; curr = curr.next) length++;
+
+        int partSize = length / k, extra = length % k;
+        ListNode[] result = new ListNode[k];
+        ListNode curr = head;
+
+        for (int i = 0; i < k; i++) {
+            ListNode dummy = new ListNode(0), write = dummy;
+            int size = partSize + (i < extra ? 1 : 0);
+            for (int j = 0; j < size; j++) {
+                write.next = curr;
+                write = write.next;
+                if (curr != null) curr = curr.next;
+            }
+            if (write != null) write.next = null;
+            result[i] = dummy.next;
+        }
+        return result;
+    }
+}
+
+Find the Minimum and Maximum Number of Nodes Between Critical Points
+public class CriticalPoints {
+    public static int[] nodesBetweenCriticalPoints(ListNode head) {
+        ListNode prev = head, curr = head.next;
+        int index = 1, first = -1, last = -1, minDist = Integer.MAX_VALUE;
+
+        while (curr != null && curr.next != null) {
+            if ((curr.val > prev.val && curr.val > curr.next.val) ||
+                (curr.val < prev.val && curr.val < curr.next.val)) {
+                if (first == -1) first = index;
+                else {
+                    minDist = Math.min(minDist, index - last);
+                }
+                last = index;
+            }
+            prev = curr;
+            curr = curr.next;
+            index++;
+        }
+
+        if (first == -1 || first == last) return new int[]{-1, -1};
+        return new int[]{minDist, last - first};
+    }
+}
+
+Clone a Linked List with Next and Random Pointer
+class Node {
+    int val;
+    Node next, random;
+    Node(int x) { val = x; }
+}
+
+public class CloneRandomList {
+    public static Node copyRandomList(Node head) {
+        if (head == null) return null;
+
+        // Step 1: Insert cloned nodes
+        Node curr = head;
+        while (curr != null) {
+            Node copy = new Node(curr.val);
+            copy.next = curr.next;
+            curr.next = copy;
+            curr = copy.next;
+        }
+
+        // Step 2: Assign random pointers
+        curr = head;
+        while (curr != null) {
+            if (curr.random != null) curr.next.random = curr.random.next;
+            curr = curr.next.next;
+        }
+
+        // Step 3: Separate lists
+        curr = head;
+        Node copyHead = head.next;
+        while (curr != null) {
+            Node copy = curr.next;
+            curr.next = copy.next;
+            if (copy.next != null) copy.next = copy.next.next;
+            curr = curr.next;
+        }
+
+        return copyHead;
+    }
+}
+
