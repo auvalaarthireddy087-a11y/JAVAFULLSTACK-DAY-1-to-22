@@ -1,0 +1,253 @@
+1)Subtract the Product and Sum of Digits of an Integer
+import java.util.Scanner;
+
+public class SubtractProductSum {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter an integer: ");
+        int num = sc.nextInt();
+
+        int sum = 0, product = 1;
+        int temp = num;
+
+        while (temp > 0) {
+            int digit = temp % 10;
+            sum += digit;
+            product *= digit;
+            temp /= 10;
+        }
+
+        int result = product - sum;
+        System.out.println("Result (Product - Sum) = " + result);
+
+        sc.close();
+    }
+}
+
+Input a number and print all the factors of that number (use loops).
+import java.util.Scanner;
+
+public class Factors {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a number: ");
+        int num = sc.nextInt();
+
+        System.out.println("Factors of " + num + " are:");
+        for (int i = 1; i <= num; i++) {
+            if (num % i == 0) {
+                System.out.print(i + " ");
+            }
+        }
+
+        sc.close();
+    }
+}
+Take integer inputs till the user enters 0 and print the sum of all numbers (HINT: while loop)
+import java.util.Scanner;
+
+public class SumTillZero {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int sum = 0, num;
+
+        System.out.println("Enter numbers (enter 0 to stop):");
+        while ((num = sc.nextInt()) != 0) {
+            sum += num;
+        }
+
+        System.out.println("Sum of all numbers = " + sum);
+
+        sc.close();
+    }
+}
+
+Take integer inputs till the user enters 0 and print the largest number from all.
+import java.util.Scanner;
+
+public class LargestTillZero {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int largest = Integer.MIN_VALUE, num;
+
+        System.out.println("Enter numbers (enter 0 to stop):");
+        while ((num = sc.nextInt()) != 0) {
+            if (num > largest) {
+                largest = num;
+            }
+        }
+
+        if (largest == Integer.MIN_VALUE) {
+            System.out.println("No numbers were entered.");
+        } else {
+            System.out.println("Largest number entered = " + largest);
+        }
+
+        sc.close();
+    }
+}
+
+Addition Of Two Numbers
+import java.util.Scanner;
+
+public class AddTwoNumbers {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter first number: ");
+        int a = sc.nextInt();
+
+        System.out.print("Enter second number: ");
+        int b = sc.nextInt();
+
+        int sum = a + b;
+        System.out.println("Sum = " + sum);
+
+        sc.close();
+    }
+}
+
+Java Program Vowel Or Consonant
+import java.util.Scanner;
+
+public class VowelOrConsonant {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a character: ");
+        char ch = sc.next().charAt(0);
+
+        // Convert to lowercase for easy comparison
+        ch = Character.toLowerCase(ch);
+
+        if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') {
+            System.out.println(ch + " is a vowel.");
+        } else if (Character.isLetter(ch)) {
+            System.out.println(ch + " is a consonant.");
+        } else {
+            System.out.println("Not an alphabet character.");
+        }
+
+        sc.close();
+    }
+}
+
+Perfect Number in Java
+import java.util.Scanner;
+
+public class PerfectNumber {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a number: ");
+        int num = sc.nextInt();
+
+        int sum = 0;
+        for (int i = 1; i < num; i++) {
+            if (num % i == 0) {
+                sum += i;
+            }
+        }
+
+        if (sum == num) {
+            System.out.println(num + " is a Perfect Number.");
+        } else {
+            System.out.println(num + " is not a Perfect Number.");
+        }
+
+        sc.close();
+    }
+}
+
+Check Leap Year or Not
+import java.util.Scanner;
+
+public class LeapYear {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a year: ");
+        int year = sc.nextInt();
+
+        if ((year % 400 == 0) || (year % 4 == 0 && year % 100 != 0)) {
+            System.out.println(year + " is a leap year.");
+        } else {
+            System.out.println(year + " is not a leap year.");
+        }
+
+        sc.close();
+    }
+}
+
+Sum of Digits of a Number
+import java.util.Scanner;
+
+public class SumOfDigits {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a number: ");
+        int num = sc.nextInt();
+
+        int sum = 0;
+        int temp = num;
+
+        while (temp > 0) {
+            sum += temp % 10;
+            temp /= 10;
+        }
+
+        System.out.println("Sum of digits of " + num + " = " + sum);
+
+        sc.close();
+    }
+}
+
+Kunal is allowed to go out with his friends only on the even days of a given month. Write a program to count the number of days he can go out in the month of August.
+public class KunalOuting {
+    public static void main(String[] args) {
+        int daysInAugust = 31; // August has 31 days
+        int count = 0;
+
+        for (int day = 1; day <= daysInAugust; day++) {
+            if (day % 2 == 0) {
+                count++;
+            }
+        }
+
+        System.out.println("Kunal can go out " + count + " days in August.");
+    }
+}
+
+Write a program to print the sum of negative numbers, sum of positive even numbers and the sum of positive odd numbers from a list of numbers (N) entered by the user. The list terminates when the user enters a zero.
+import java.util.Scanner;
+
+public class SumCategories {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int sumNegative = 0, sumEven = 0, sumOdd = 0;
+        int num;
+
+        System.out.println("Enter numbers (enter 0 to stop):");
+        while ((num = sc.nextInt()) != 0) {
+            if (num < 0) {
+                sumNegative += num;
+            } else if (num % 2 == 0) {
+                sumEven += num;
+            } else {
+                sumOdd += num;
+            }
+        }
+
+        System.out.println("Sum of negative numbers = " + sumNegative);
+        System.out.println("Sum of positive even numbers = " + sumEven);
+        System.out.println("Sum of positive odd numbers = " + sumOdd);
+
+        sc.close();
+    }
+}
