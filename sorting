@@ -1,0 +1,122 @@
+Find all numbers disappeared in an array
+import java.util.*;
+
+public class FindDisappearedNumbers {
+    public static List<Integer> findDisappearedNumbers(int[] nums) {
+        int n = nums.length;
+
+        // Cyclic sort: place each number at its correct index
+        for (int i = 0; i < n; i++) {
+            while (nums[i] != nums[nums[i] - 1]) {
+                int temp = nums[i];
+                nums[i] = nums[temp - 1];
+                nums[temp - 1] = temp;
+            }
+        }
+
+        // Collect missing numbers
+        List<Integer> result = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            if (nums[i] != i + 1) {
+                result.add(i + 1);
+            }
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {4,3,2,7,8,2,3,1};
+        System.out.println("Missing numbers: " + findDisappearedNumbers(nums));
+    }
+}
+
+Find the Duplicate Number
+public class FindDuplicate {
+    public static int findDuplicate(int[] nums) {
+        int slow = nums[0];
+        int fast = nums[0];
+
+        // Phase 1: Detect cycle
+        do {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        } while (slow != fast);
+
+        // Phase 2: Find entry point
+        slow = nums[0];
+        while (slow != fast) {
+            slow = nums[slow];
+            fast = nums[fast];
+        }
+
+        return slow;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1,3,4,2,2};
+        System.out.println("Duplicate number = " + findDuplicate(nums)); // Output: 2
+    }
+}
+
+Find All Duplicates in an Array
+import java.util.*;
+
+public class FindAllDuplicates {
+    public static List<Integer> findDuplicates(int[] nums) {
+        List<Integer> result = new ArrayList<>();
+
+        for (int num : nums) {
+            int index = Math.abs(num) - 1;
+            if (nums[index] < 0) {
+                result.add(Math.abs(num));
+            } else {
+                nums[index] = -nums[index];
+            }
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {4,3,2,7,8,2,3,1};
+        System.out.println("Duplicates: " + findDuplicates(nums)); // Output: [2,3]
+    }
+}
+
+First missing Positive
+public class FirstMissingPositive {
+    public static int firstMissingPositive(int[] nums) {
+        int n = nums.length;
+
+        // Place each number at its correct index
+        for (int i = 0; i < n; i++) {
+            while (nums[i] > 0 && nums[i] <= n && nums[nums[i] - 1] != nums[i]) {
+                int temp = nums[i];
+                nums[i] = nums[temp - 1];
+                nums[temp - 1] = temp;
+            }
+        }
+
+        // Find the first index where nums[i] != i+1
+        for (int i = 0; i < n; i++) {
+            if (nums[i] != i + 1) {
+                return i + 1;
+            }
+        }
+
+        // If all numbers are in place, answer is n+1
+        return n + 1;
+    }
+
+    public static void main(String[] args) {
+        int[] nums1 = {1,2,0};
+        int[] nums2 = {3,4,-1,1};
+        int[] nums3 = {7,8,9,11,12};
+
+        System.out.println("First Missing Positive (nums1) = " + firstMissingPositive(nums1)); // 3
+        System.out.println("First Missing Positive (nums2) = " + firstMissingPositive(nums2)); // 2
+        System.out.println("First Missing Positive (nums3) = " + firstMissingPositive(nums3)); // 1
+    }
+}
+
