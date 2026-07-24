@@ -1,0 +1,66 @@
+1)write a program to print whether a number is even or odd, also take input from the user.
+import java.util.Scanner;
+
+public class EvenOddCheck {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Ask the user for a number
+        System.out.print("Enter a number: ");
+        int num = sc.nextInt();
+
+        // Check if the number is even or odd
+        if (num % 2 == 0) {
+            System.out.println(num + " is even.");
+        } else {
+            System.out.println(num + " is odd.");
+        }
+
+        sc.close();
+    }
+}
+
+2)Take name as input and print a greeting message for that particular name.
+import java.util.Scanner;
+
+public class GreetingMessage {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Ask the user for their name
+        System.out.print("Enter your name: ");
+        String name = sc.nextLine();
+
+        // Print a greeting message
+        System.out.println("Hello, " + name + "! Welcome to Java programming.");
+
+        sc.close();
+    }
+}
+
+3)Write a program to input principal, time, and rate (P, T, R) from the user and find Simple Interest
+import java.util.Scanner;
+
+public class SimpleInterest {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input principal, time, and rate
+        System.out.print("Enter Principal (P): ");
+        double principal = sc.nextDouble();
+
+        System.out.print("Enter Time (T in years): ");
+        double time = sc.nextDouble();
+
+        System.out.print("Enter Rate of Interest (R in %): ");
+        double rate = sc.nextDouble();
+
+        // Formula for Simple Interest: (P * T * R) / 100
+        double simpleInterest = (principal * time * rate) / 100;
+
+        // Print the result
+        System.out.println("Simple Interest = " + simpleInterest);
+
+        sc.close();
+    }
+}
