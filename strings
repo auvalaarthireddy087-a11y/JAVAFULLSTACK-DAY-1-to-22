@@ -1,0 +1,160 @@
+Valid Parentheses
+import java.util.Stack;
+
+public class ValidParentheses {
+    public static boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
+
+        for (char c : s.toCharArray()) {
+            if (c == '(' || c == '{' || c == '[') {
+                stack.push(c);
+            } else {
+                if (stack.isEmpty()) return false;
+                char top = stack.pop();
+                if ((c == ')' && top != '(') ||
+                    (c == '}' && top != '{') ||
+                    (c == ']' && top != '[')) {
+                    return false;
+                }
+            }
+        }
+
+        return stack.isEmpty();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(isValid("()"));      // true
+        System.out.println(isValid("()[]{}"));  // true
+        System.out.println(isValid("(]"));      // false
+        System.out.println(isValid("([)]"));    // false
+        System.out.println(isValid("{[]}"));    // true
+    }
+}
+
+Length of Last Word
+public class LengthOfLastWord {
+    public static int lengthOfLastWord(String s) {
+        s = s.trim(); // remove trailing spaces
+        int length = 0;
+
+        for (int i = s.length() - 1; i >= 0; i--) {
+            if (s.charAt(i) == ' ') break;
+            length++;
+        }
+
+        return length;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(lengthOfLastWord("Hello World"));       // 5
+        System.out.println(lengthOfLastWord("   fly me   to   the moon  ")); // 4
+        System.out.println(lengthOfLastWord("luffy is still joyboy")); // 6
+    }
+}
+
+Camelcase Matching
+import java.util.*;
+
+public class CamelcaseMatching {
+    public static List<Boolean> camelMatch(String[] queries, String pattern) {
+        List<Boolean> result = new ArrayList<>();
+        for (String query : queries) {
+            result.add(isMatch(query, pattern));
+        }
+        return result;
+    }
+
+    private static boolean isMatch(String query, String pattern) {
+        int i = 0, j = 0;
+        while (i < query.length()) {
+            char qc = query.charAt(i);
+            if (j < pattern.length() && qc == pattern.charAt(j)) {
+                j++;
+            } else if (Character.isUpperCase(qc)) {
+                return false;
+            }
+            i++;
+        }
+        return j == pattern.length();
+    }
+
+    public static void main(String[] args) {
+        String[] queries = {"FooBar","FooBarTest","FootBall","FrameBuffer","ForceFeedBack"};
+        String pattern = "FB";
+        System.out.println(camelMatch(queries, pattern)); 
+        // Output: [true, false, true, true, false]
+    }
+}
+
+Print Words Vertically
+import java.util.*;
+
+public class PrintWordsVertically {
+    public static List<String> printVertically(String s) {
+        String[] words = s.split(" ");
+        int maxLen = 0;
+        for (String word : words) {
+            maxLen = Math.max(maxLen, word.length());
+        }
+
+        List<String> result = new ArrayList<>();
+        for (int i = 0; i < maxLen; i++) {
+            StringBuilder sb = new StringBuilder();
+            for (String word : words) {
+                if (i < word.length()) {
+                    sb.append(word.charAt(i));
+                } else {
+                    sb.append(" ");
+                }
+            }
+            result.add(sb.toString().replaceAll("\\s+$", "")); // trim trailing spaces
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        String s = "HOW ARE YOU";
+        System.out.println(printVertically(s));
+        // Output: ["HAY","ORO","WEU"]
+    }
+}
+
+Special Binary String
+import java.util.*;
+
+public class SpecialBinaryString {
+    public static String makeLargestSpecial(String s) {
+        if (s.length() <= 2) return s;
+
+        List<String> subs = new ArrayList<>();
+        int count = 0, start = 0;
+
+        for (int i = 0; i < s.length(); i++) {
+            count += (s.charAt(i) == '1') ? 1 : -1;
+            if (count == 0) {
+                // Recursively process the substring inside
+                subs.add("1" + makeLargestSpecial(s.substring(start + 1, i)) + "0");
+                start = i + 1;
+            }
+        }
+
+        // Sort substrings in descending order
+        Collections.sort(subs, Collections.reverseOrder());
+
+        // Concatenate
+        StringBuilder result = new StringBuilder();
+        for (String sub : subs) result.append(sub);
+
+        return result.toString();
+    }
+
+    public static void main(String[] args) {
+        String s = "11011000";
+        System.out.println("Largest Special Binary String = " + makeLargestSpecial(s));
+        // Output: "11100100"
+    }
+}
+
+
+
+
