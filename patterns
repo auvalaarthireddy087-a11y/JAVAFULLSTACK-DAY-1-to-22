@@ -1,0 +1,47 @@
+Square of Stars
+for (int i = 0; i < 5; i++) {
+    for (int j = 0; j < 5; j++) {
+        System.out.print("*");
+    }
+    System.out.println();
+}
+
+Right‑angled Triangle (Increasing)
+for (int i = 1; i <= 5; i++) {
+    for (int j = 1; j <= i; j++) {
+        System.out.print("*");
+    }
+    System.out.println();
+}
+
+Right‑angled Triangle (Decreasing)
+for (int i = 5; i >= 1; i--) {
+    for (int j = 1; j <= i; j++) {
+        System.out.print("*");
+    }
+    System.out.println();
+}
+
+Number Triangle
+for (int i = 1; i <= 5; i++) {
+    for (int j = 1; j <= i; j++) {
+        System.out.print(j + " ");
+    }
+    System.out.println();
+}
+Diamond‑like Star Pattern
+// Upper half
+for (int i = 1; i <= 5; i++) {
+    for (int j = 1; j <= i; j++) {
+        System.out.print("*");
+    }
+    System.out.println();
+}
+// Lower half
+for (int i = 4; i >= 1; i--) {
+    for (int j = 1; j <= i; j++) {
+        System.out.print("*");
+    }
+    System.out.println();
+}
+
