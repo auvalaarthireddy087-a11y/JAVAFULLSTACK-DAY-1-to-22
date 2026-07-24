@@ -1,0 +1,62 @@
+1)Input a year and find whether it is a leap year or not.
+import java.util.Scanner;
+
+public class LeapYearCheck {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a year: ");
+        int year = sc.nextInt();
+        if ((year % 400 == 0) || (year % 4 == 0 && year % 100 != 0)) {
+            System.out.println(year + " is a leap year.");
+        } else {
+            System.out.println(year + " is not a leap year.");
+        }
+        sc.close();
+    }
+}
+
+2)Take two numbers and print the sum of both.
+import java.util.Scanner;
+
+public class SumOfTwoNumbers {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Ask the user for two numbers
+        System.out.print("Enter the first number: ");
+        int num1 = sc.nextInt();
+
+        System.out.print("Enter the second number: ");
+        int num2 = sc.nextInt();
+
+        // Calculate the sum
+        int sum = num1 + num2;
+
+        // Print the result
+        System.out.println("The sum of " + num1 + " and " + num2 + " is: " + sum);
+
+        sc.close();
+    }
+}
+
+3)Take a number as input and print the multiplication table for it.
+import java.util.Scanner;
+
+public class MultiplicationTable {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Ask the user for a number
+        System.out.print("Enter a number: ");
+        int num = sc.nextInt();
+
+        // Print the multiplication table up to 10
+        System.out.println("Multiplication table for " + num + ":");
+        for (int i = 1; i <= 10; i++) {
+            System.out.println(num + " x " + i + " = " + (num * i));
+        }
+
+        sc.close();
+    }
+}
