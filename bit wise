@@ -1,0 +1,133 @@
+Minimum Number of Flips to Convert Binary Matrix to Zero Matrix
+import java.util.*;
+
+public class MinFlipsBinaryMatrix {
+    public static int minFlips(int[][] mat) {
+        int m = mat.length, n = mat[0].length;
+        String start = encode(mat);
+        if (start.equals("0".repeat(m*n))) return 0;
+
+        Queue<String> q = new LinkedList<>();
+        Set<String> visited = new HashSet<>();
+        q.add(start);
+        visited.add(start);
+
+        int steps = 0;
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (size-- > 0) {
+                String curr = q.poll();
+                if (curr.equals("0".repeat(m*n))) return steps;
+                int[][] grid = decode(curr, m, n);
+                for (int i = 0; i < m; i++) {
+                    for (int j = 0; j < n; j++) {
+                        int[][] next = flip(grid, i, j);
+                        String nextStr = encode(next);
+                        if (!visited.contains(nextStr)) {
+                            visited.add(nextStr);
+                            q.add(nextStr);
+                        }
+                    }
+                }
+            }
+            steps++;
+        }
+        return -1;
+    }
+
+    private static int[][] flip(int[][] mat, int r, int c) {
+        int m = mat.length, n = mat[0].length;
+        int[][] copy = new int[m][n];
+        for (int i = 0; i < m; i++) copy[i] = mat[i].clone();
+        int[][] dirs = {{0,0},{1,0},{-1,0},{0,1},{0,-1}};
+        for (int[] d : dirs) {
+            int nr = r + d[0], nc = c + d[1];
+            if (nr >= 0 && nr < m && nc >= 0 && nc < n) {
+                copy[nr][nc] ^= 1;
+            }
+        }
+        return copy;
+    }
+
+    private static String encode(int[][] mat) {
+        StringBuilder sb = new StringBuilder();
+        for (int[] row : mat) for (int v : row) sb.append(v);
+        return sb.toString();
+    }
+
+    private static int[][] decode(String s, int m, int n) {
+        int[][] mat = new int[m][n];
+        for (int i = 0; i < s.length(); i++) mat[i/n][i%n] = s.charAt(i) - '0';
+        return mat;
+    }
+
+    public static void main(String[] args) {
+        int[][] mat = {{0,0},{0,1}};
+        System.out.println(minFlips(mat)); // Output: 3
+    }
+}
+
+Minimum Cost to Connect Two Groups of Points
+public class MinCostConnectGroups {
+    public static int connectTwoGroups(List<List<Integer>> cost) {
+        int m = cost.size(), n = cost.get(0).size();
+        int maxMask = 1 << n;
+        int[][] dp = new int[m+1][maxMask];
+        for (int[] row : dp) Arrays.fill(row, Integer.MAX_VALUE/2);
+        dp[0][0] = 0;
+
+        for (int i = 0; i < m; i++) {
+            for (int mask = 0; mask < maxMask; mask++) {
+                if (dp[i][mask] >= Integer.MAX_VALUE/2) continue;
+                for (int j = 0; j < n; j++) {
+                    int newMask = mask | (1 << j);
+                    dp[i+1][newMask] = Math.min(dp[i+1][newMask], dp[i][mask] + cost.get(i).get(j));
+                }
+            }
+        }
+
+        int ans = Integer.MAX_VALUE;
+        for (int mask = 0; mask < maxMask; mask++) {
+            if (dp[m][mask] < Integer.MAX_VALUE/2) {
+                // ensure all group2 covered
+                if (mask == maxMask-1) ans = Math.min(ans, dp[m][mask]);
+            }
+        }
+        return ans;
+    }
+}
+
+Find XOR Sum of All Pairs Bitwise AND
+public class XORSumPairs {
+    public static int getXORSum(int[] arr1, int[] arr2) {
+        int xor1 = 0, xor2 = 0;
+        for (int a : arr1) xor1 ^= a;
+        for (int b : arr2) xor2 ^= b;
+        return xor1 & xor2;
+    }
+
+    public static void main(String[] args) {
+        int[] arr1 = {1,2,3};
+        int[] arr2 = {6,5};
+        System.out.println(getXORSum(arr1, arr2)); // Output: 0
+    }
+}
+Repeated DNA Sequences
+import java.util.*;
+
+public class RepeatedDNA {
+    public static List<String> findRepeatedDnaSequences(String s) {
+        Set<String> seen = new HashSet<>();
+        Set<String> repeated = new HashSet<>();
+        for (int i = 0; i + 10 <= s.length(); i++) {
+            String sub = s.substring(i, i+10);
+            if (!seen.add(sub)) repeated.add(sub);
+        }
+        return new ArrayList<>(repeated);
+    }
+
+    public static void main(String[] args) {
+        String dna = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT";
+        System.out.println(findRepeatedDnaSequences(dna)); // Output: [AAAAACCCCC, CCCCCAAAAA]
+    }
+}
