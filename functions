@@ -1,0 +1,155 @@
+Write a program that will ask the user to enter his/her marks (out of 100). Define a method that will display grades according to the marks entered as below:
+
+ 
+Marks        Grade 
+91-100         AA 
+81-90          AB 
+71-80          BB 
+61-70          BC 
+51-60          CD 
+41-50          DD 
+<=40          Fail 
+import java.util.Scanner;
+
+public class GradeCalculator {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter marks (out of 100): ");
+        int marks = sc.nextInt();
+
+        displayGrade(marks);
+
+        sc.close();
+    }
+
+    // Method to display grade
+    public static void displayGrade(int marks) {
+        if (marks >= 91 && marks <= 100) {
+            System.out.println("Grade: AA");
+        } else if (marks >= 81) {
+            System.out.println("Grade: AB");
+        } else if (marks >= 71) {
+            System.out.println("Grade: BB");
+        } else if (marks >= 61) {
+            System.out.println("Grade: BC");
+        } else if (marks >= 51) {
+            System.out.println("Grade: CD");
+        } else if (marks >= 41) {
+            System.out.println("Grade: DD");
+        } else {
+            System.out.println("Grade: Fail");
+        }
+    }
+}
+
+Write a program to print the factorial of a number by defining a method named 'Factorial'. Factorial of any number n is represented by n! and is equal to 1 * 2 * 3 * .... * (n-1) *n. E.g.-
+4! = 1 * 2 * 3 * 4 = 24 
+3! = 3 * 2 * 1 = 6 
+2! = 2 * 1 = 2 
+Also, 
+1! = 1 
+0! = 1
+
+import java.util.Scanner;
+
+public class FactorialProgram {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a number: ");
+        int n = sc.nextInt();
+
+        System.out.println("Factorial of " + n + " = " + factorial(n));
+
+        sc.close();
+    }
+
+    // Method to calculate factorial
+    public static long factorial(int n) {
+        if (n == 0 || n == 1) return 1;
+        long fact = 1;
+        for (int i = 2; i <= n; i++) {
+            fact *= i;
+        }
+        return fact;
+    }
+}
+
+Write a function to find if a number is a palindrome or not. Take number as parameter.
+public class PalindromeCheck {
+    public static void main(String[] args) {
+        int num = 121;
+        if (isPalindrome(num)) {
+            System.out.println(num + " is a palindrome.");
+        } else {
+            System.out.println(num + " is not a palindrome.");
+        }
+    }
+
+    public static boolean isPalindrome(int num) {
+        int original = num, reversed = 0;
+        while (num > 0) {
+            int digit = num % 10;
+            reversed = reversed * 10 + digit;
+            num /= 10;
+        }
+        return original == reversed;
+    }
+}
+
+Write a function to check if a given triplet is a Pythagorean triplet or not. (A Pythagorean triplet is when the sum of the square of two numbers is equal to the square of the third number).
+public class PythagoreanTriplet {
+    public static void main(String[] args) {
+        int a = 3, b = 4, c = 5;
+        if (isPythagoreanTriplet(a, b, c)) {
+            System.out.println("It is a Pythagorean triplet.");
+        } else {
+            System.out.println("Not a Pythagorean triplet.");
+        }
+    }
+
+    public static boolean isPythagoreanTriplet(int a, int b, int c) {
+        int x = a*a, y = b*b, z = c*c;
+        return (x + y == z) || (x + z == y) || (y + z == x);
+    }
+}
+
+Write a function that returns all prime numbers between two given numbers.
+public class PrimeRange {
+    public static void main(String[] args) {
+        int start = 10, end = 50;
+        System.out.println("Prime numbers between " + start + " and " + end + ":");
+        printPrimes(start, end);
+    }
+
+    public static void printPrimes(int start, int end) {
+        for (int i = start; i <= end; i++) {
+            if (isPrime(i)) {
+                System.out.print(i + " ");
+            }
+        }
+    }
+
+    public static boolean isPrime(int num) {
+        if (num <= 1) return false;
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i == 0) return false;
+        }
+        return true;
+    }
+}
+
+Write a function that returns the sum of first n natural numbers.
+public class SumNaturalNumbers {
+    public static void main(String[] args) {
+        int n = 10;
+        System.out.println("Sum of first " + n + " natural numbers = " + sumNatural(n));
+    }
+
+    public static int sumNatural(int n) {
+        return n * (n + 1) / 2; // Formula
+    }
+}
+
+
