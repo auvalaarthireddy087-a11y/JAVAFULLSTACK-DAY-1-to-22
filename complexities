@@ -1,0 +1,42 @@
+Recurrence Solver
+public class RecurrenceExamples {
+
+    // Example 1: T(n) = 2T(n/2) + n^4
+    public static int recurrence1(int n) {
+        if (n <= 1) return 1;
+        return 2 * recurrence1(n / 2) + (int)Math.pow(n, 4);
+    }
+
+    // Example 2: T(n) = T(7n/10) + n
+    public static int recurrence2(int n) {
+        if (n <= 1) return 1;
+        return recurrence2((7 * n) / 10) + n;
+    }
+
+    // Example 3: T(n) = 16T(n/4) + n^2
+    public static int recurrence3(int n) {
+        if (n <= 1) return 1;
+        return 16 * recurrence3(n / 4) + n * n;
+    }
+
+    // Example 4: T(n) = 7T(n/3) + n^2
+    public static int recurrence4(int n) {
+        if (n <= 1) return 1;
+        return 7 * recurrence4(n / 3) + n * n;
+    }
+
+    // Example 5: T(n) = 2T(n/4) + sqrt(n)
+    public static int recurrence5(int n) {
+        if (n <= 1) return 1;
+        return 2 * recurrence5(n / 4) + (int)Math.sqrt(n);
+    }
+
+    public static void main(String[] args) {
+        int n = 16;
+        System.out.println("Recurrence 1 result: " + recurrence1(n));
+        System.out.println("Recurrence 2 result: " + recurrence2(n));
+        System.out.println("Recurrence 3 result: " + recurrence3(n));
+        System.out.println("Recurrence 4 result: " + recurrence4(n));
+        System.out.println("Recurrence 5 result: " + recurrence5(n));
+    }
+}
